@@ -15,5 +15,6 @@ class Solution(object):
         """
         return getstr(n,n,'',[])
 
+
 solution = Solution()
 print solution.generateParenthesis(3)
