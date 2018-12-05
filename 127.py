@@ -26,13 +26,10 @@ class Solution(object):
                     pd1, pd2 = tmp[:i], tmp[i + 1:]
                     for j in wordList:
                         pd3, pd4 = j[:i], j[i + 1:]
-                        print tmp,j
                         if j != tmp and pd1 == pd3 and pd2 == pd4:
                             q.put(j)
                             a[j] = a[tmp] + 1
                             visit.add(j)
-                            print q.queue, a, visit,tmp
-
         return 0
 
 
