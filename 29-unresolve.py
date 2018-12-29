@@ -5,34 +5,36 @@ class Solution(object):
         :type divisor: int
         :rtype: int
         """
-
-        if divisor == 0:
-            return 'MAX_INT'
-        if dividend==0:
-            return 0
+        max_int = pow(2, 31) - 1
+        min_int = pow(2, 31)
+        positive = True
+        res = 0
+        if dividend < 0:
+            positive = not positive
+            dividend = -dividend
+        if divisor < 0:
+            positive = not positive
+            divisor = -divisor
+        if dividend == 0 or divisor == 1:
+            compare = max_int if positive else min_int
+            res = dividend if dividend < compare else compare
         else:
-            i = 0
-            newone = 0
-            if divisor>0>dividend:
-                while newone >= dividend:
-                    newone -= divisor
-                    i -= 1
-                return i+1
-            elif dividend>0>divisor:
-                while newone <= dividend:
-                    newone -= divisor
-                    i -= 1
-                return i+1
-            elif dividend>0:
-                while newone <= dividend:
-                    newone += divisor
-                    i += 1
-                return i-1
-            else:
-                while newone >= dividend:
-                    newone += divisor
-                    i += 1
-                return i-1
+            def cur(dividend, res):
+                if dividend < divisor:
+                    return res
+                new_divisor = divisor
+                times = 1
+                while dividend >= new_divisor:
+                    dividend -= new_divisor
+                    res += times
+                    new_divisor += new_divisor
+                    times += times
+                return cur(dividend, res)
+            res = cur(dividend, res)
 
-solu =Solution()
-print solu.divide(1,2)
+        return res if positive else -res
+
+
+print pow(2, 31) - 1
+solu = Solution()
+print solu.divide(2147483647, 2)
